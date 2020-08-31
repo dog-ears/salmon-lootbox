@@ -1,0 +1,11 @@
+// 共通（mixinとvariable）
+@import "../../asset/common";
+
+// Appコンポーネントのみに適用されるスタイル
+
+.app{
+  h1{
+    color: $color-red;
+    @include fs14
+  }
+}
