@@ -10,6 +10,12 @@ export default class Weapons {
 
   static getAll = (): WeaponDataInterface[] => Weapons.data;
 
+  static getById = (id: number): WeaponDataInterface => {
+    return Weapons.data.filter((w) => {
+      return w.id === id;
+    })[0];
+  }
+
   private static data: WeaponDataInterface[] = [
     {
       id: 1,
