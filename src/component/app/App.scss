@@ -3,9 +3,4 @@
 
 // Appコンポーネントのみに適用されるスタイル
 
-.app{
-  h1{
-    color: $color-red;
-    @include fs14
-  }
-}
+.app{}

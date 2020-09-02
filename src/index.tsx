@@ -10,7 +10,6 @@ import App from 'component/app/App';
 
 ReactDOM.render(
   <React.StrictMode>
-    <h1>indexのh1</h1>
     <App />
   </React.StrictMode>,
   document.getElementById('root')
