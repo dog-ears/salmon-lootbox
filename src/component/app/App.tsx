@@ -37,8 +37,15 @@ export default class App extends React.Component<{}, StateInterface> {
           <h2>ブキリスト</h2>
           <div className="myWeapon">
             <ul>
-              {this.state.weaponInventory.map((data: WeaponInventoryInterface) => {
-                return <li>{data.weaponId}</li>
+              {this.state.weaponInventory.map((wi: WeaponInventoryInterface) => {
+                return (
+                  <li
+                    key={wi.weaponId}
+                    className={Weapons.getById(wi.weaponId).filename + ((wi.amount === 0) ? ' notOwn' : '')}
+                  >
+                    <div className='name'>{Weapons.getById(wi.weaponId).name}（{wi.amount}）</div>
+                  </li>
+                )
               })}
             </ul>
           </div>
