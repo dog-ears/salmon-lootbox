@@ -6,15 +6,7 @@ import './App.scss';
 // クラス
 import Weapons from 'class/Weapons';
 
-interface StateInterface {
-  weaponInventory: WeaponInventoryInterface[],
-}
-interface WeaponInventoryInterface {
-  weaponId: number,
-  amount: number,
-}
-
-export default class App extends React.Component<{}, StateInterface> {
+export default class App extends React.Component<{}, RootStateInterface> {
   constructor(props: {}) {
     super(props);
     this.state = {
