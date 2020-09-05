@@ -1,0 +1,76 @@
+// 共通（mixinとvariable）
+@import "../../asset/common";
+
+// weaponListコンポーネントのみに適用されるスタイル
+#weaponList{
+  .myWeapon{
+    ul{
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      li{
+        position: relative;
+        width: 200px;
+        height: 200px;
+        margin-top: 20px;
+        background-position: center center;
+        background-repeat: no-repeat;
+        @include mq(){
+          width: calc( 50% - 10px );
+        }
+        @include weaponBg;
+        &.notOwn::before{
+          content: "";
+          display: block;
+          width: 100%;
+          height: 100%;
+          background-color: rgba(255,255,255,0.7);
+        }
+        &.blank{
+          height: 0;
+          margin-top: 0;
+        }
+        > .name{
+          position: absolute;
+          top: 5px;
+          width: 100%;
+          text-align: center;
+          font-size: 16px;
+          font-weight: bold;
+        }
+        > .button{
+          position: absolute;
+          bottom: 5px;
+          width: 100%;
+          text-align: center;
+          > button{
+            box-sizing: border-box;
+            display: inline-block;
+            width: 32px;
+            height: 32px;
+            position: relative;
+            top: -2px;
+            left: -2px;
+            padding: 0;
+            margin: 0 5px;
+            background-color: #fff;
+            border: 2px solid #ec572b;
+            border-radius: 16px;
+            text-align: center;
+            color: #ec572b;
+            font-size: 24px;
+            line-height: 1.2em;
+            cursor: pointer;
+            &:focus{
+              outline:0;
+            }
+            &:hover{
+              background-color: #ec572b;
+              color: #fff;
+            }
+          }
+        }
+      }
+    }
+  }
+}

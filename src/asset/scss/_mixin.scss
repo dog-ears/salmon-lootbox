@@ -1,5 +1,64 @@
 @import "./variable";
 
-@mixin fs14 {
-  font-size: 14px;
+@mixin mq($bp: $breakpoint) { 
+  @media screen and (max-width: $bp) {
+    @content;
+  }
+}
+
+@mixin weaponBg {
+  &.boldMarker{ background-image: url('/img/weapon/boldMarker.png'); }
+  &.wakabaShooter{ background-image: url('/img/weapon/wakabaShooter.png'); }
+  &.sharpMarker{ background-image: url('/img/weapon/sharpMarker.png'); }
+  &.promodelerMg{ background-image: url('/img/weapon/promodelerMg.png'); }
+  &.splaShooter{ background-image: url('/img/weapon/splaShooter.png'); }
+  &.w52Galon{ background-image: url('/img/weapon/w52Galon.png'); }
+  &.n-zap85{ background-image: url('/img/weapon/n-zap85.png'); }
+  &.primeShooter{ background-image: url('/img/weapon/primeShooter.png'); }
+  &.w96Galon{ background-image: url('/img/weapon/w96Galon.png'); }
+  &.jetSweeper{ background-image: url('/img/weapon/jetSweeper.png'); }
+  &.novaBlaster{ background-image: url('/img/weapon/novaBlaster.png'); }
+  &.hotBlaster{ background-image: url('/img/weapon/hotBlaster.png'); }
+  &.longBlaster{ background-image: url('/img/weapon/longBlaster.png'); }
+  &.crushBlaster{ background-image: url('/img/weapon/crushBlaster.png'); }
+  &.rapidBlaster{ background-image: url('/img/weapon/rapidBlaster.png'); }
+  &.rBlasterElite{ background-image: url('/img/weapon/rBlasterElite.png'); }
+  &.l3Reelgun{ background-image: url('/img/weapon/l3Reelgun.png'); }
+  &.h3Reelgun{ background-image: url('/img/weapon/h3Reelgun.png'); }
+  &.bottleGaiser{ background-image: url('/img/weapon/bottleGaiser.png'); }
+  &.carbonRoller{ background-image: url('/img/weapon/carbonRoller.png'); }
+  &.splaRoller{ background-image: url('/img/weapon/splaRoller.png'); }
+  &.dynamoRoller{ background-image: url('/img/weapon/dynamoRoller.png'); }
+  &.variableRoller{ background-image: url('/img/weapon/variableRoller.png'); }
+  &.pablo{ background-image: url('/img/weapon/pablo.png'); }
+  &.hokusai{ background-image: url('/img/weapon/hokusai.png'); }
+  &.squickrinA{ background-image: url('/img/weapon/squickrinA.png'); }
+  &.splaCharger{ background-image: url('/img/weapon/splaCharger.png'); }
+  &.splaScope{ background-image: url('/img/weapon/splaScope.png'); }
+  &.litter4k{ background-image: url('/img/weapon/litter4k.png'); }
+  &.w4kScope{ background-image: url('/img/weapon/w4kScope.png'); }
+  &.take{ background-image: url('/img/weapon/take.png'); }
+  &.soiTuber{ background-image: url('/img/weapon/soiTuber.png'); }
+  &.bucketSlother{ background-image: url('/img/weapon/bucketSlother.png'); }
+  &.hissen{ background-image: url('/img/weapon/hissen.png'); }
+  &.screwSlother{ background-image: url('/img/weapon/screwSlother.png'); }
+  &.overFlosher{ background-image: url('/img/weapon/overFlosher.png'); }
+  &.explosher{ background-image: url('/img/weapon/explosher.png'); }
+  &.splaSpiner{ background-image: url('/img/weapon/splaSpiner.png'); }
+  &.barelSpiner{ background-image: url('/img/weapon/barelSpiner.png'); }
+  &.hydrant{ background-image: url('/img/weapon/hydrant.png'); }
+  &.cugelShuraiber{ background-image: url('/img/weapon/cugelShuraiber.png'); }
+  &.nautilus47{ background-image: url('/img/weapon/nautilus47.png'); }
+  &.spattary{ background-image: url('/img/weapon/spattary.png'); }
+  &.splaManeuver{ background-image: url('/img/weapon/splaManeuver.png'); }
+  &.kelbin525{ background-image: url('/img/weapon/kelbin525.png'); }
+  &.dualSweeper{ background-image: url('/img/weapon/dualSweeper.png'); }
+  &.quadHopperBlack{ background-image: url('/img/weapon/quadHopperBlack.png'); }
+  &.paraShelter{ background-image: url('/img/weapon/paraShelter.png'); }
+  &.campingShelter{ background-image: url('/img/weapon/campingShelter.png'); }
+  &.spyGadjet{ background-image: url('/img/weapon/spyGadjet.png'); }
+  &.kumaBlaster{ background-image: url('/img/weapon/kumaBlaster.png'); }
+  &.kumaShelter{ background-image: url('/img/weapon/kumaShelter.png'); }
+  &.kumaCharger{ background-image: url('/img/weapon/kumaCharger.png'); }
+  &.kumaSlosher{ background-image: url('/img/weapon/kumaSlosher.png'); }
 }
