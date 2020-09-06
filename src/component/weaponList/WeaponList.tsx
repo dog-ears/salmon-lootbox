@@ -4,8 +4,12 @@ import './WeaponList.scss';
 // class
 import Weapons from 'class/Weapons';
 
+// component
+import App from 'component/app/App';
+
 interface PropsInterface {
   weaponInventory: WeaponInventoryInterface[],
+  onClickPlusMinus: App["onClickPlusMinus"],
 }
 
 export default class WeaponList extends React.Component<PropsInterface, {}> {
@@ -25,9 +29,9 @@ export default class WeaponList extends React.Component<PropsInterface, {}> {
                   <div className='name'>{Weapons.getById(wi.weaponId).name}（{wi.amount}）</div>
                   <div className='button'>
                     {wi.amount > 0 &&
-                      <button className="minus" data-weapon={wi.weaponId} data-amount="-1">-</button>
+                      <button className="minus" onClick={this.props.onClickPlusMinus} data-weaponid={wi.weaponId} data-amount="-1">-</button>
                     }
-                    <button className="plus" data-weapon={wi.weaponId} data-amount="1">+</button>
+                    <button className="plus" onClick={this.props.onClickPlusMinus} data-weaponid={wi.weaponId} data-amount="1">+</button>
                   </div>
                 </li>
               )

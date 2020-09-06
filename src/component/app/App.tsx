@@ -22,6 +22,51 @@ export default class App extends React.Component<{}, RootStateInterface> {
     }
   }
 
+  /* ------------------------------------------------------
+  各種ボタン等押したときの処理
+  ------------------------------------------------------ */
+
+  // 武器リストの「+」「-」をおした時の処理
+  private onClickPlusMinus = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
+
+    event.persist();  // イベントを非同期で使えるようにする
+
+    // datasetに「weaponId」と「amount」がなかったら何もしない
+    if (event.currentTarget.dataset.weaponid === undefined || event.currentTarget.dataset.amount === undefined) { return }
+
+    // インベントリの増減処理を呼ぶ
+    this.changeWeaponInventoryAmount(parseInt(event.currentTarget.dataset.weaponid), parseInt(event.currentTarget.dataset.amount));
+  }
+
+  /* ------------------------------------------------------
+  その他処理
+  ------------------------------------------------------ */
+
+  // 武器インベントリ増減
+  private changeWeaponInventoryAmount = (weaponId: number, amount: number): void => {
+    this.setState(
+      (state) => {
+
+        // deep copy
+        let newState: RootStateInterface = JSON.parse(JSON.stringify(state));
+
+        // stateの更新
+        newState.weaponInventory = newState.weaponInventory.map((wi) => {
+          if (wi.weaponId === weaponId) {
+            wi.amount += amount;
+
+            // -1になってしまったときの処理
+            if (wi.amount < 0) {
+              wi.amount = 0;
+            }
+          }
+          return wi;
+        });
+        return newState;
+      }
+    );
+  }
+
   render() {
     return (
       <div className="app">
@@ -30,6 +75,7 @@ export default class App extends React.Component<{}, RootStateInterface> {
         </div>
         <WeaponList
           weaponInventory={this.state.weaponInventory}
+          onClickPlusMinus={this.onClickPlusMinus}
         />
       </div>
     );
