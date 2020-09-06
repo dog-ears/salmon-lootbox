@@ -23,6 +23,12 @@ export default class WeaponList extends React.Component<PropsInterface, {}> {
                   className={Weapons.getById(wi.weaponId).filename + ((wi.amount === 0) ? ' notOwn' : '')}
                 >
                   <div className='name'>{Weapons.getById(wi.weaponId).name}（{wi.amount}）</div>
+                  <div className='button'>
+                    {wi.amount > 0 &&
+                      <button className="minus" data-weapon={wi.weaponId} data-amount="-1">-</button>
+                    }
+                    <button className="plus" data-weapon={wi.weaponId} data-amount="1">+</button>
+                  </div>
                 </li>
               )
             })}
