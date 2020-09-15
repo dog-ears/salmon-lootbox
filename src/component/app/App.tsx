@@ -31,6 +31,27 @@ export default class App extends React.Component<{}, RootStateInterface> {
   各種ボタン等押したときの処理
   ------------------------------------------------------ */
 
+  // セッティング変更
+  private onChangeSetting = (event: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
+
+    // イベントを非同期で使えるようにする処理
+    event.persist();
+
+    this.setState(
+      (state) => {
+
+        // キー取得
+        let key = event.target.id;
+
+        // deep copy
+        let newState = JSON.parse(JSON.stringify(state));
+
+        newState.setting[key] = parseInt(event.target.value);
+        return newState;
+      }
+    );
+  }
+
   // 武器リストの「+」「-」をおした時の処理
   private onClickPlusMinus = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
 
@@ -78,7 +99,11 @@ export default class App extends React.Component<{}, RootStateInterface> {
         <div className="container">
           <h1><span className="dib">サーモンラン</span> <span className="dib">ブキガチャ</span></h1>
         </div>
-        <Setting />
+        <Setting
+          choice={this.state.setting.choice}
+          rate={this.state.setting.rate}
+          onChange={this.onChangeSetting}
+        />
         <WeaponList
           weaponInventory={this.state.weaponInventory}
           onClickPlusMinus={this.onClickPlusMinus}
