@@ -68,6 +68,33 @@ export default class App extends React.Component<{}, RootStateInterface> {
   その他処理
   ------------------------------------------------------ */
 
+  /**
+   * 下記条件に応じた武器インベントリを取得する
+   * （１）選択していないクマブキを除外
+   * @return {WeaponInventoryInterface[]}       フィルタリングされた武器インベントリ
+   */
+  private getFilteredWeaponInventory = (): WeaponInventoryInterface[] => {
+
+    // deep copy
+    let filteredWeaponInventory: WeaponInventoryInterface[] = JSON.parse(JSON.stringify(this.state.weaponInventory));
+
+    // （１）クマブキ選択が「全て」じゃなかった場合、選択していないクマブキを除外
+    if (this.state.setting.choice !== 0) {
+      filteredWeaponInventory = filteredWeaponInventory.filter((wi) => {
+        if (
+          (Weapons.getById(wi.weaponId).isKuma) && // クマブキでかつ、
+          (wi.weaponId !== this.state.setting.choice) // 選択したクマブキIDと違っていたら、
+        ) {
+          return false; // 除外する
+        }
+        return true;
+      });
+    }
+
+    // 結果を返却
+    return filteredWeaponInventory
+  }
+
   // 武器インベントリ増減
   private changeWeaponInventoryAmount = (weaponId: number, amount: number): void => {
     this.setState(
@@ -105,7 +132,7 @@ export default class App extends React.Component<{}, RootStateInterface> {
           onChange={this.onChangeSetting}
         />
         <WeaponList
-          weaponInventory={this.state.weaponInventory}
+          weaponInventory={this.getFilteredWeaponInventory()}
           onClickPlusMinus={this.onClickPlusMinus}
         />
       </div>
