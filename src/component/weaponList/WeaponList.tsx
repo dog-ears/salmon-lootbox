@@ -3,7 +3,6 @@ import './WeaponList.scss';
 
 // class
 import Weapons from 'class/Weapons';
-import weaponFilter from 'class/weaponFilter';
 
 // component
 import App from 'component/app/App';
@@ -13,23 +12,7 @@ interface PropsInterface {
   onClickPlusMinus: App["onClickPlusMinus"],
 }
 
-interface StateInterface {
-  filter: {
-    type: number,
-    own: number,
-  },
-}
-
-export default class WeaponList extends React.Component<PropsInterface, StateInterface> {
-  constructor(props: PropsInterface) {
-    super(props);
-    this.state = {
-      filter: {
-        type: 0,
-        own: 0,
-      }
-    };
-  }
+export default class WeaponList extends React.Component<PropsInterface, {}> {
 
   render() {
     return (
