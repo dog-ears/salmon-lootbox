@@ -4,6 +4,7 @@ import React from 'react';
 import './App.scss';
 
 // コンポーネント
+import Setting from 'component/setting/Setting';
 import WeaponList from 'component/weaponList/WeaponList';
 
 // クラス
@@ -77,6 +78,7 @@ export default class App extends React.Component<{}, RootStateInterface> {
         <div className="container">
           <h1><span className="dib">サーモンラン</span> <span className="dib">ブキガチャ</span></h1>
         </div>
+        <Setting />
         <WeaponList
           weaponInventory={this.state.weaponInventory}
           onClickPlusMinus={this.onClickPlusMinus}
