@@ -56,6 +56,27 @@ export default class App extends React.Component<{}, RootStateInterface> {
     );
   }
 
+  // フィルタリング変更
+  private onChangeFilter = (event: React.ChangeEvent<HTMLSelectElement>) => {
+
+    // イベントを非同期で使えるようにする処理
+    event.persist();
+
+    this.setState(
+      (state) => {
+
+        // キー取得
+        let key = event.target.id;
+
+        // deep copy
+        let newState = JSON.parse(JSON.stringify(state));
+
+        newState.filter[key] = parseInt(event.target.value);
+        return newState;
+      }
+    );
+  }
+
   // 武器リストの「+」「-」をおした時の処理
   private onClickPlusMinus = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
 
@@ -138,6 +159,7 @@ export default class App extends React.Component<{}, RootStateInterface> {
         <WeaponList
           weaponInventory={this.getFilteredWeaponInventory()}
           filter={this.state.filter}
+          onChangeFilter={this.onChangeFilter}
           onClickPlusMinus={this.onClickPlusMinus}
         />
       </div>

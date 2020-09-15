@@ -11,6 +11,7 @@ import App from 'component/app/App';
 interface PropsInterface {
   weaponInventory: WeaponInventoryInterface[],
   filter: FilterInterface,
+  onChangeFilter: App["onChangeFilter"],
   onClickPlusMinus: App["onClickPlusMinus"],
 }
 
@@ -22,7 +23,7 @@ export default function WeaponList(props: PropsInterface) {
         <dl>
           <dt>武器の種類：</dt>
           <dd>
-            <select id="type" value={props.filter.type}>
+            <select id="type" value={props.filter.type} onChange={props.onChangeFilter}>
               {weaponFilter.getAll().type.map((t) => {
                 return (
                   <option key={t.id} value={t.id}>{t.title}</option>
@@ -34,7 +35,7 @@ export default function WeaponList(props: PropsInterface) {
         <dl>
           <dt>所持 ：</dt>
           <dd>
-            <select id="own" value={props.filter.own}>
+            <select id="own" value={props.filter.own} onChange={props.onChangeFilter}>
               {weaponFilter.getAll().own.map((o) => {
                 return (
                   <option key={o.id} value={o.id}>{o.name}</option>
