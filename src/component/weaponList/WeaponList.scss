@@ -3,6 +3,27 @@
 
 // weaponListコンポーネントのみに適用されるスタイル
 #weaponList{
+  .filter{
+    > dl{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 15px;
+      @include mq(){
+        flex-direction: column;
+      }
+      dd{
+        margin-left: 10px;
+        @include mq(){
+          margin-top: 10px;
+        }
+        input{
+          width: 3.8em;
+          margin-right: 5px;
+        }
+      }
+    }
+  }
   .myWeapon{
     ul{
       display: flex;

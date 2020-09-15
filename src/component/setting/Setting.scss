@@ -18,17 +18,9 @@
       @include mq(){
         margin-top: 10px;
       }
-      select{
-        border: 1px solid #666;
-        padding: 8px;
-        font-weight: bold;
-      }
       input{
         width: 3.8em;
-        border: 1px solid #666;
         margin-right: 5px;
-        padding: 8px;
-        font-weight: bold;
       }
     }
   }
