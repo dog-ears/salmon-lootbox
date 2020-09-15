@@ -24,6 +24,10 @@ export default class App extends React.Component<{}, RootStateInterface> {
         choice: 51,
         rate: 25,
       },
+      filter: {
+        type: 0,
+        own: 0,
+      }
     }
   }
 
