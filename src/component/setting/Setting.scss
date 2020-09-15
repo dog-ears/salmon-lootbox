@@ -10,8 +10,14 @@
     justify-content: center;
     align-items: center;
     margin-top: 15px;
+    @include mq(){
+      flex-direction: column;
+    }
     dd{
       margin-left: 10px;
+      @include mq(){
+        margin-top: 10px;
+      }
       select{
         border: 1px solid #666;
         padding: 8px;
