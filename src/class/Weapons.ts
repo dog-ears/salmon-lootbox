@@ -15,6 +15,12 @@ export default class Weapons {
       return w.id === id;
     })[0];
   }
+  static getKuma = (): WeaponDataInterface[] => {
+    return Weapons.data.filter((w) => w.isKuma);
+  }
+  static getNotKuma = (): WeaponDataInterface[] => {
+    return Weapons.data.filter((w) => !w.isKuma);
+  }
 
   private static data: WeaponDataInterface[] = [
     {
