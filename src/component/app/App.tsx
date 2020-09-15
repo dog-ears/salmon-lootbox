@@ -19,6 +19,10 @@ export default class App extends React.Component<{}, RootStateInterface> {
           amount: 0
         };
       }),
+      setting: {
+        choice: 51,
+        rate: 25,
+      },
     }
   }
 
