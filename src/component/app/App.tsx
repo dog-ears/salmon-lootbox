@@ -96,6 +96,7 @@ export default class App extends React.Component<{}, RootStateInterface> {
   /**
    * 下記条件に応じた武器インベントリを取得する
    * （１）選択していないクマブキを除外
+   * （２）state.filterの条件で絞り込む
    * @return {WeaponInventoryInterface[]}       フィルタリングされた武器インベントリ
    */
   private getFilteredWeaponInventory = (): WeaponInventoryInterface[] => {
@@ -113,6 +114,24 @@ export default class App extends React.Component<{}, RootStateInterface> {
           return false; // 除外する
         }
         return true;
+      });
+    }
+
+    // （２）state.filterの条件で絞り込む
+    // 種類（type）
+    if (this.state.filter.type !== 0) {
+      filteredWeaponInventory = filteredWeaponInventory.filter((wi) => {
+        return Weapons.getById(wi.weaponId).typeId === this.state.filter.type;
+      });
+    }
+    // 所持（own）
+    if (this.state.filter.own === 1) {  // 未取得
+      filteredWeaponInventory = filteredWeaponInventory.filter((wi) => {
+        return wi.amount === 0
+      });
+    } else if (this.state.filter.own === 2) {  // 取得済み
+      filteredWeaponInventory = filteredWeaponInventory.filter((wi) => {
+        return wi.amount > 0
       });
     }
 
