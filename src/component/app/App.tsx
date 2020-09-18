@@ -99,7 +99,15 @@ export default class App extends React.Component<{}, RootStateInterface> {
    * （２）state.filterの条件で絞り込む
    * @return {WeaponInventoryInterface[]}       フィルタリングされた武器インベントリ
    */
-  private getFilteredWeaponInventory = (): WeaponInventoryInterface[] => {
+  private getFilteredWeaponInventory = (typeId?: number, ownId?: number): WeaponInventoryInterface[] => {
+
+    // typeIdとownIdの設定
+    if (typeId === undefined) {
+      typeId = this.state.filter.type;
+    }
+    if (ownId === undefined) {
+      ownId = this.state.filter.own;
+    }
 
     // deep copy
     let filteredWeaponInventory: WeaponInventoryInterface[] = JSON.parse(JSON.stringify(this.state.weaponInventory));
@@ -119,17 +127,17 @@ export default class App extends React.Component<{}, RootStateInterface> {
 
     // （２）state.filterの条件で絞り込む
     // 種類（type）
-    if (this.state.filter.type !== 0) {
+    if (typeId !== 0) {
       filteredWeaponInventory = filteredWeaponInventory.filter((wi) => {
-        return Weapons.getById(wi.weaponId).typeId === this.state.filter.type;
+        return Weapons.getById(wi.weaponId).typeId === typeId;
       });
     }
     // 所持（own）
-    if (this.state.filter.own === 1) {  // 未取得
+    if (ownId === 1) {  // 未取得
       filteredWeaponInventory = filteredWeaponInventory.filter((wi) => {
         return wi.amount === 0
       });
-    } else if (this.state.filter.own === 2) {  // 取得済み
+    } else if (ownId === 2) {  // 取得済み
       filteredWeaponInventory = filteredWeaponInventory.filter((wi) => {
         return wi.amount > 0
       });
