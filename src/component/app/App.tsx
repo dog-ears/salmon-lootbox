@@ -188,6 +188,7 @@ export default class App extends React.Component<{}, RootStateInterface> {
           filter={this.state.filter}
           onChangeFilter={this.onChangeFilter}
           onClickPlusMinus={this.onClickPlusMinus}
+          getFilteredWeaponInventory={this.getFilteredWeaponInventory}
         />
       </div>
     );
