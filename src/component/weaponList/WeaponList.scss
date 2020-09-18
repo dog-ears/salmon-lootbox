@@ -75,10 +75,10 @@
             padding: 0;
             margin: 0 5px;
             background-color: #fff;
-            border: 2px solid #ec572b;
+            border: 2px solid $btn-color;
             border-radius: 16px;
             text-align: center;
-            color: #ec572b;
+            color: $btn-color;
             font-size: 24px;
             line-height: 1.2em;
             cursor: pointer;
@@ -86,7 +86,7 @@
               outline:0;
             }
             &:hover{
-              background-color: #ec572b;
+              background-color: $btn-color;
               color: #fff;
             }
           }

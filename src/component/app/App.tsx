@@ -5,6 +5,7 @@ import './App.scss';
 
 // コンポーネント
 import Setting from 'component/setting/Setting';
+import Conpane from 'component/conpane/Conpane';
 import WeaponList from 'component/weaponList/WeaponList';
 
 // クラス
@@ -183,6 +184,7 @@ export default class App extends React.Component<{}, RootStateInterface> {
           rate={this.state.setting.rate}
           onChange={this.onChangeSetting}
         />
+        <Conpane />
         <WeaponList
           weaponInventory={this.getFilteredWeaponInventory()}
           filter={this.state.filter}

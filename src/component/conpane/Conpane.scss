@@ -1,0 +1,22 @@
+// 共通（mixinとvariable）
+@import "../../asset/common";
+
+// Conpaneコンポーネントのみに適用されるスタイル
+#conpane{
+  text-align: center;
+  div{
+    display: inline-block;
+    margin: 0 10px;
+  }
+  button{
+    border: 1px solid $btn-color;
+    cursor: pointer;
+    padding: 5px 10px;
+    color: $btn-color;
+    font-weight: bold;
+    &:hover{
+      background: $btn-color;
+      color: #FFF;
+    }
+  }
+}
