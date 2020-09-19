@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 
 // スタイル
 import './App.scss';
@@ -7,6 +8,7 @@ import './App.scss';
 import Setting from 'component/setting/Setting';
 import Conpane from 'component/conpane/Conpane';
 import WeaponList from 'component/weaponList/WeaponList';
+import ModalGachaResult from 'component/modalGachaResult/ModalGachaResult';
 
 // クラス
 import Weapons from 'class/Weapons';
@@ -55,6 +57,16 @@ export default class App extends React.Component<{}, RootStateInterface> {
         return newState;
       }
     );
+  }
+
+  // ガチャを押したときの処理
+  private onGacha = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+
+    // ボタンのフォーカス解除
+    event.currentTarget.blur();
+
+    // ガチャ結果モーダルを開く
+    ReactDOM.render(<ModalGachaResult />, document.getElementById('modal'));
   }
 
   // フィルタリング変更
@@ -184,7 +196,9 @@ export default class App extends React.Component<{}, RootStateInterface> {
           rate={this.state.setting.rate}
           onChange={this.onChangeSetting}
         />
-        <Conpane />
+        <Conpane
+          onGacha={this.onGacha}
+        />
         <WeaponList
           weaponInventory={this.getFilteredWeaponInventory()}
           filter={this.state.filter}
@@ -192,6 +206,7 @@ export default class App extends React.Component<{}, RootStateInterface> {
           onClickPlusMinus={this.onClickPlusMinus}
           getFilteredWeaponInventory={this.getFilteredWeaponInventory}
         />
+        <div id="modal"></div>
       </div>
     );
   }
