@@ -6,6 +6,17 @@
   }
 }
 
+@mixin btnNormal {
+  border: 1px solid $btn-color-gray;
+  cursor: pointer;
+  padding: 5px 10px;
+  color: $btn-color-gray;
+  &:hover{
+    background: $btn-color-gray;
+    color: #FFF;
+  }
+}
+
 @mixin weaponBg {
   &.boldMarker{ background-image: url('/img/weapon/boldMarker.png'); }
   &.wakabaShooter{ background-image: url('/img/weapon/wakabaShooter.png'); }

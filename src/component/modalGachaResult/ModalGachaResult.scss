@@ -19,6 +19,10 @@
       background-color: #fff;
       border: 1px solid $border-color;
       border-radius: 10px;
+      > .btn{
+        margin-top: 15px;
+        @include btnNormal;
+      }
     }
   }
 }

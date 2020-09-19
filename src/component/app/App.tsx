@@ -66,7 +66,19 @@ export default class App extends React.Component<{}, RootStateInterface> {
     event.currentTarget.blur();
 
     // ガチャ結果モーダルを開く
-    ReactDOM.render(<ModalGachaResult />, document.getElementById('modal'));
+    ReactDOM.render(<ModalGachaResult
+      onCloseModal={this.onCloseModal}
+    />, document.getElementById('modal'));
+  }
+
+  // モーダルを閉じる
+  private onCloseModal = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+
+    // モーダルを閉じる
+    let modalElement = document.getElementById('modal');
+    if (modalElement !== null) {
+      ReactDOM.unmountComponentAtNode(modalElement);
+    }
   }
 
   // フィルタリング変更
