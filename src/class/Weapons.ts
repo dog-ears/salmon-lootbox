@@ -22,6 +22,31 @@ export default class Weapons {
     return Weapons.data.filter((w) => !w.isKuma);
   }
 
+  static getRandomWeapon = (setting: SettingInterface): WeaponDataInterface => {
+
+    // 当たる可能性のあるクマブキリストの取得
+    let kuma: WeaponDataInterface[] = Weapons.getKuma();
+    if (setting.choice !== 0) {
+      kuma = kuma.filter((k: WeaponDataInterface) => k.id === setting.choice);
+    }
+
+    // クマブキが出たかの判定
+    let rand: number = Math.floor(Math.random() * 100); // 0～99の乱数
+
+    if (rand < setting.rate) {  // クマブキ当たりのとき
+      if (kuma.length > 1) {
+        let rand: number = Math.floor(Math.random() * kuma.length);
+        return kuma[rand];
+      } else {
+        return kuma[0];
+      }
+    } else {
+      let notKuma: WeaponDataInterface[] = Weapons.getNotKuma();
+      let rand: number = Math.floor(Math.random() * notKuma.length);
+      return notKuma[rand];
+    }
+  }
+
   private static data: WeaponDataInterface[] = [
     {
       id: 1,
