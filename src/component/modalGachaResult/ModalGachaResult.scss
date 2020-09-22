@@ -38,7 +38,10 @@
       }
       > .btn{
         margin-top: 15px;
-        @include btnNormal;
+        text-align: center;
+        button{
+          @include btnNormal;
+        }
       }
     }
   }
