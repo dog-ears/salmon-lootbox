@@ -65,11 +65,19 @@ export default class App extends React.Component<{}, RootStateInterface> {
     // ボタンのフォーカス解除
     event.currentTarget.blur();
 
+    // ランダム武器の取得
+    let droppedWeapon = Weapons.getRandomWeapon(this.state.setting);
+
+    // インベントリの増減処理を呼ぶ
+    this.changeWeaponInventoryAmount(droppedWeapon.id, 1);
+
     // ガチャ結果モーダルを開く
     ReactDOM.render(<ModalGachaResult
+      droppedWeapon={droppedWeapon}
       onCloseModal={this.onCloseModal}
     />, document.getElementById('modal'));
   }
+
 
   // モーダルを閉じる
   private onCloseModal = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {

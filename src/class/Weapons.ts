@@ -1,4 +1,4 @@
-interface WeaponDataInterface {
+export interface WeaponDataInterface {
   id: number,
   name: string,
   filename: string,
