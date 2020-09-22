@@ -78,6 +78,30 @@ export default class App extends React.Component<{}, RootStateInterface> {
     />, document.getElementById('modal'));
   }
 
+  // リセットを押したときの処理
+  private onReset = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+
+    // ボタンのフォーカス解除
+    event.currentTarget.blur();
+
+    // 確認
+    let confirmReset: boolean = window.confirm('データをリセットします。よろしいですか？');
+    if (!confirmReset) {
+      return false;
+    }
+
+    // ステートのリセット処理
+    this.setState(
+      (state) => {
+        let newState: RootStateInterface = JSON.parse(JSON.stringify(state));
+        newState.weaponInventory = newState.weaponInventory.map((wi) => {
+          wi.amount = 0;
+          return wi;
+        });
+        return newState;
+      }
+    );
+  }
 
   // モーダルを閉じる
   private onCloseModal = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
@@ -218,6 +242,7 @@ export default class App extends React.Component<{}, RootStateInterface> {
         />
         <Conpane
           onGacha={this.onGacha}
+          onReset={this.onReset}
         />
         <WeaponList
           weaponInventory={this.getFilteredWeaponInventory()}
