@@ -65,3 +65,15 @@ input{
     }
   }
 }
+
+// hide
+@include mqPc(){
+  .hidePc{
+    display: none!important;
+  }
+}
+@include mq(){
+  .hideSp{
+    display: none!important;
+  }
+}

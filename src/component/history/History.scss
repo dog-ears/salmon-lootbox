@@ -1,0 +1,23 @@
+// 共通（mixinとvariable）
+@import "../../asset/common";
+
+// Historyコンポーネントのみに適用されるスタイル
+
+#history{
+  .gachaCount{
+    margin-top: 15px;
+    text-align: center;
+    font-weight: bold;
+  }
+  .data{
+    display: block;
+    max-height: 8em;
+    overflow-y: auto;
+    margin-top: 15px;
+    > ul > li{
+      margin-top: 15px;
+      text-align: center;
+      font-weight: bold;
+    }
+  }
+}

@@ -6,6 +6,12 @@
   }
 }
 
+@mixin mqPc($bp: $breakpoint) { 
+  @media screen and (min-width: ($bp+1)) {
+    @content;
+  }
+}
+
 @mixin btnNormal {
   border: 1px solid $btn-color-gray;
   cursor: pointer;

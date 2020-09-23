@@ -8,6 +8,7 @@ interface RootStateInterface {
   weaponInventory: WeaponInventoryInterface[],
   setting: SettingInterface,
   filter: FilterInterface,
+  histories: HistoryInterface[],
 }
 interface WeaponInventoryInterface {
   weaponId: number,
@@ -20,4 +21,9 @@ interface SettingInterface {
 interface FilterInterface {
   type: number,
   own: number,
+}
+interface HistoryInterface {
+  type: number, // 0:ガチャ, 1:マニュアル
+  weaponId: number,
+  amount: number,
 }

@@ -10,6 +10,7 @@ import Conpane from 'component/conpane/Conpane';
 import WeaponList from 'component/weaponList/WeaponList';
 import ModalGachaResult from 'component/modalGachaResult/ModalGachaResult';
 import ModalStatistics from 'component/modalStatistics/ModalStatistics';
+import History from 'component/history/History';
 
 // クラス
 import Weapons from 'class/Weapons';
@@ -31,7 +32,8 @@ export default class App extends React.Component<{}, RootStateInterface> {
       filter: {
         type: 0,
         own: 0,
-      }
+      },
+      histories: [],
     }
   }
 
@@ -71,6 +73,9 @@ export default class App extends React.Component<{}, RootStateInterface> {
 
     // インベントリの増減処理を呼ぶ
     this.changeWeaponInventoryAmount(droppedWeapon.id, 1);
+
+    // ヒストリの追加
+    this.addHistory({ type: 0, weaponId: droppedWeapon.id, amount: 1 });
 
     // ガチャ結果モーダルを開く
     ReactDOM.render(<ModalGachaResult
@@ -158,6 +163,13 @@ export default class App extends React.Component<{}, RootStateInterface> {
 
     // インベントリの増減処理を呼ぶ
     this.changeWeaponInventoryAmount(parseInt(event.currentTarget.dataset.weaponid), parseInt(event.currentTarget.dataset.amount));
+
+    // ヒストリの追加
+    this.addHistory({
+      type: 1,
+      weaponId: parseInt(event.currentTarget.dataset.weaponid),
+      amount: parseInt(event.currentTarget.dataset.amount),
+    });
   }
 
   /* ------------------------------------------------------
@@ -243,6 +255,20 @@ export default class App extends React.Component<{}, RootStateInterface> {
     );
   }
 
+  /**
+   * ヒストリーの追加
+   * @param  {HistoryInterface} history 追加するヒストリ
+   */
+  private addHistory = (history: HistoryInterface) => {
+    this.setState(
+      (state) => {
+        let newState: RootStateInterface = JSON.parse(JSON.stringify(state));
+        newState.histories.push(history);
+        return newState;
+      }
+    );
+  }
+
   render() {
     return (
       <div className="app">
@@ -265,6 +291,9 @@ export default class App extends React.Component<{}, RootStateInterface> {
           onChangeFilter={this.onChangeFilter}
           onClickPlusMinus={this.onClickPlusMinus}
           getFilteredWeaponInventory={this.getFilteredWeaponInventory}
+        />
+        <History
+          histories={this.state.histories}
         />
         <div id="modal"></div>
       </div>
