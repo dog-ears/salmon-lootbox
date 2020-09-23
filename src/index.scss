@@ -77,3 +77,15 @@ input{
     display: none!important;
   }
 }
+
+// スクロールバー
+*::-webkit-scrollbar{
+  width: 4px;
+}
+*::-webkit-scrollbar-track{
+  background: #fff;
+}
+*::-webkit-scrollbar-thumb{
+  background: #ccc;
+  border-radius: 2px;
+}
