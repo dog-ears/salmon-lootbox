@@ -40,4 +40,28 @@ input{
   }
 }
 
-
+// モーダル
+.modalBg{
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(255,255,255,0.9);
+  .modalOuter{
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid $border-color;
+    border-radius: 10px;
+    .btn{
+      margin-top: 15px;
+      text-align: center;
+      button{
+        @include btnNormal;
+      }
+    }
+  }
+}

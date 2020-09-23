@@ -9,6 +9,7 @@ import Setting from 'component/setting/Setting';
 import Conpane from 'component/conpane/Conpane';
 import WeaponList from 'component/weaponList/WeaponList';
 import ModalGachaResult from 'component/modalGachaResult/ModalGachaResult';
+import ModalStatistics from 'component/modalStatistics/ModalStatistics';
 
 // クラス
 import Weapons from 'class/Weapons';
@@ -101,6 +102,19 @@ export default class App extends React.Component<{}, RootStateInterface> {
         return newState;
       }
     );
+  }
+
+  // 統計を押したときの処理
+  private onStatistics = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+
+    // ボタンのフォーカス解除
+    event.currentTarget.blur();
+
+    // 統計モーダルを開く
+    ReactDOM.render(<ModalStatistics
+      weaponInventoryOwn={this.getFilteredWeaponInventory(0, 2)}
+      onCloseModal={this.onCloseModal}
+    />, document.getElementById('modal'));
   }
 
   // モーダルを閉じる
@@ -243,6 +257,7 @@ export default class App extends React.Component<{}, RootStateInterface> {
         <Conpane
           onGacha={this.onGacha}
           onReset={this.onReset}
+          onStatistics={this.onStatistics}
         />
         <WeaponList
           weaponInventory={this.getFilteredWeaponInventory()}
