@@ -7,6 +7,12 @@
   div{
     display: inline-block;
     margin: 0 10px;
+    @include mq(){
+      display: block;
+    }
+    & + div{
+      margin-top: 15px;
+    }
   }
   button{
     border: 1px solid $btn-color;
@@ -17,6 +23,10 @@
     &:hover{
       background: $btn-color;
       color: #FFF;
+    }
+    @include mq(){
+      display: block;
+      width: 100%;
     }
   }
 }
