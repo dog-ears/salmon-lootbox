@@ -44,6 +44,21 @@ export default class App extends React.Component<{}, RootStateInterface> {
     }
   }
 
+  // キーイベントの設定
+  componentDidMount() {
+    window.addEventListener('keyup', this.handleKeyDown.bind(this));
+  }
+
+  // キーイベント
+  private handleKeyDown = (e: KeyboardEvent): void => {
+    if (e.key === 'Enter') {
+
+      // モーダルを閉じる
+      this.onCloseModal(e);
+
+    }
+  }
+
   // ローカルストレージに保存
   private saveState = () => {
     const jsonStr: string = JSON.stringify(this.state);
@@ -147,7 +162,7 @@ export default class App extends React.Component<{}, RootStateInterface> {
   }
 
   // モーダルを閉じる
-  private onCloseModal = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  private onCloseModal = (event: React.MouseEvent<HTMLButtonElement, MouseEvent> | KeyboardEvent) => {
 
     // モーダルを閉じる
     let modalElement = document.getElementById('modal');
