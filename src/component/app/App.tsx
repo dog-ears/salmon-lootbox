@@ -110,6 +110,17 @@ export default class App extends React.Component<{}, RootStateInterface> {
     // ランダム武器の取得
     let droppedWeapon = Weapons.getRandomWeapon(this.state.setting);
 
+    // 取得したランダム武器が初出かどうかを取得
+    let isNew = false;
+    this.state.weaponInventory.map((wi) => {
+      if (wi.weaponId === droppedWeapon.id) {
+        if (wi.amount === 0) {
+          isNew = true;
+        }
+      }
+      return true;
+    });
+
     // インベントリの増減処理を呼ぶ
     this.changeWeaponInventoryAmount(droppedWeapon.id, 1);
 
@@ -119,6 +130,7 @@ export default class App extends React.Component<{}, RootStateInterface> {
     // ガチャ結果モーダルを開く
     ReactDOM.render(<ModalGachaResult
       droppedWeapon={droppedWeapon}
+      isNew={isNew}
       onCloseModal={this.onCloseModal}
     />, document.getElementById('modal'));
   }

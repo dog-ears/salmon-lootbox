@@ -8,6 +8,7 @@
     display: block;
     width: 160px;
     height: 160px;
+    margin: 0 auto;
     > span{
       display: block;
       width: 100%;
@@ -15,6 +16,17 @@
       background-position: center center;
       background-repeat: no-repeat;
       @include weaponBg;
+    }
+  }
+  .new{
+    margin-bottom: 5px;
+    text-align: center;
+    > span{
+      display: inline-block;
+      padding: 3px 5px;
+      background-color: #c00;
+      color: #fff;
+      font-size: 12px;
     }
   }
   .name{
