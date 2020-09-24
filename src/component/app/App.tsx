@@ -18,22 +18,46 @@ import Weapons from 'class/Weapons';
 export default class App extends React.Component<{}, RootStateInterface> {
   constructor(props: {}) {
     super(props);
-    this.state = {
-      weaponInventory: Weapons.getAll().map((w) => {
-        return {
-          weaponId: w.id,
-          amount: 0
-        };
-      }),
-      setting: {
-        choice: 51,
-        rate: 25,
-      },
-      filter: {
-        type: 0,
-        own: 0,
-      },
-      histories: [],
+
+    // ローカルストレージにデータがあれば、そこからロード。なければ初期値を設定
+    let localState = this.loadState();
+    if (localState) {
+      this.state = localState;
+    } else {
+      this.state = {
+        weaponInventory: Weapons.getAll().map((w) => {
+          return {
+            weaponId: w.id,
+            amount: 0
+          };
+        }),
+        setting: {
+          choice: 51,
+          rate: 25,
+        },
+        filter: {
+          type: 0,
+          own: 0,
+        },
+        histories: [],
+      }
+    }
+  }
+
+  // ローカルストレージに保存
+  private saveState = () => {
+    const jsonStr: string = JSON.stringify(this.state);
+    localStorage.setItem('salmon-lootbox', jsonStr);
+  }
+
+  // ローカルストレージから読み込み
+  private loadState = (): RootStateInterface | null => {
+    const jsonStr: string | null = localStorage.getItem('salmon-lootbox');
+    if (jsonStr) {
+      const loadState: RootStateInterface = JSON.parse(jsonStr);
+      return loadState;
+    } else {
+      return null;
     }
   }
 
@@ -58,7 +82,7 @@ export default class App extends React.Component<{}, RootStateInterface> {
 
         newState.setting[key] = parseInt(event.target.value);
         return newState;
-      }
+      }, this.saveState
     );
   }
 
@@ -105,7 +129,7 @@ export default class App extends React.Component<{}, RootStateInterface> {
           return wi;
         });
         return newState;
-      }
+      }, this.saveState
     );
   }
 
@@ -149,7 +173,7 @@ export default class App extends React.Component<{}, RootStateInterface> {
 
         newState.filter[key] = parseInt(event.target.value);
         return newState;
-      }
+      }, this.saveState
     );
   }
 
@@ -251,7 +275,7 @@ export default class App extends React.Component<{}, RootStateInterface> {
           return wi;
         });
         return newState;
-      }
+      }, this.saveState
     );
   }
 
@@ -265,7 +289,7 @@ export default class App extends React.Component<{}, RootStateInterface> {
         let newState: RootStateInterface = JSON.parse(JSON.stringify(state));
         newState.histories.push(history);
         return newState;
-      }
+      }, this.saveState
     );
   }
 
