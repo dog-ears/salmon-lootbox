@@ -23,7 +23,11 @@ interface FilterInterface {
   own: number,
 }
 interface HistoryInterface {
-  type: number, // 0:ガチャ, 1:マニュアル
+  /**
+   * 履歴の種類（0:ガチャ, 1:マニュアル）
+   * @type {Number}
+   */
+  type: number,
   weaponId: number,
   amount: number,
 }
