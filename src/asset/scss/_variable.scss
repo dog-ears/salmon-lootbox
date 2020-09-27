@@ -2,7 +2,48 @@
 // ブレイクポイント
 $breakpoint: 640px;
 
+// 基本色
+$color-white: #fff;
+$color-white-op9: rgba(255,255,255,0.9);
+$color-white-op7: rgba(255,255,255,0.7);
+$color-grayc: #ccc;
+$color-gray6: #666;
+$color-orange: #ec572b;
+$color-red: #c00;
+
 // 色
-$border-color: #666;
-$btn-color: #ec572b;
-$btn-color-gray: #666;
+$m-containerBorder-color: $color-gray6;
+
+$m-modal-bgColor: $color-white-op9;
+$m-modalInner-borderColor: $color-gray6;
+$m-modalInner-bgColor: $color-white;
+
+$scrollBar-track: $color-white;
+$scrollBar-bg: $color-grayc;
+
+$btnNormal-border: $color-gray6;
+$btnNormal-bg: $color-white;
+$btnNormal-color: $color-gray6;
+$btnNormal-hover-border: $color-gray6;
+$btnNormal-hover-bg: $color-gray6;
+$btnNormal-hover-color: $color-white;
+
+$btnSpecial-border: $color-orange;
+$btnSpecial-bg: $color-white;
+$btnSpecial-color: $color-orange;
+$btnSpecial-hover-border: $color-orange;
+$btnSpecial-hover-bg: $color-orange;
+$btnSpecial-hover-color: $color-white;
+
+$btn-color: $color-orange;
+$btn-color-gray: $color-gray6;
+
+$myWeapon-notOwn-bgColor: $color-white-op7;
+$myWeapon-btn-borderColor: $color-orange;
+$myWeapon-btn-bgColor: $color-white;
+$myWeapon-btn-color: $color-orange;
+$myWeapon-btn-hover-bgColor: $color-orange;
+$myWeapon-btn-hover-color: $color-white;
+
+$gachaResult-new-bgColor: $color-red;
+$gachaResult-new-color: $color-white;

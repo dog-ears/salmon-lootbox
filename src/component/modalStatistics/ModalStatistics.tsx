@@ -19,8 +19,8 @@ export default function ModalStatistics(props: PropsInterface) {
   });
 
   return (
-    <div id="statistics" className="modalBg">
-      <div className="modalOuter">
+    <div id="statistics" className="m-modal">
+      <div className="mc-modalInner">
         <h2>統計</h2>
         <div className="totalAmount">所持武器数 ： {props.weaponInventoryOwn.length} 種類 {total} 個</div>
         {total > 0 &&
@@ -41,7 +41,7 @@ export default function ModalStatistics(props: PropsInterface) {
             </div>
           </div>
         }
-        <div className="btn"><button onClick={props.onCloseModal}>閉じる</button></div>
+        <div className="mc-btn"><button onClick={props.onCloseModal}>閉じる</button></div>
       </div>
     </div>
   );

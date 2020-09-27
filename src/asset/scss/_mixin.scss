@@ -1,25 +1,43 @@
 @import "./variable";
 
-@mixin mq($bp: $breakpoint) { 
-  @media screen and (max-width: $bp) {
+// メディアクエリ
+@mixin mqPc() { 
+  @media screen and (min-width: ($breakpoint+1)) {
+    @content;
+  }
+}
+@mixin mqSp() { 
+  @media screen and (max-width: $breakpoint) {
     @content;
   }
 }
 
-@mixin mqPc($bp: $breakpoint) { 
-  @media screen and (min-width: ($bp+1)) {
-    @content;
-  }
-}
-
+// ボタン
 @mixin btnNormal {
-  border: 1px solid $btn-color-gray;
+  border: 1px solid $btnNormal-border;
   cursor: pointer;
   padding: 5px 10px;
-  color: $btn-color-gray;
+  background-color: $btnNormal-bg;
+  text-align: center;
+  color: $btnNormal-color;
+  font-weight: bold;
   &:hover{
-    background: $btn-color-gray;
-    color: #FFF;
+    @include mqPc(){
+      background: $btnNormal-hover-bg;
+      color: $btnNormal-hover-color;
+    }
+  }
+}
+@mixin btnSpecial {
+  @include btnNormal;
+  border: 1px solid $btnSpecial-border;
+  background-color: $btnSpecial-bg;
+  color: $btnSpecial-color;
+  &:hover{
+    @include mqPc(){
+      background: $btnSpecial-hover-bg;
+      color: $btnSpecial-hover-color;
+    }
   }
 }
 

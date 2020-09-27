@@ -9,7 +9,7 @@ interface PropsInterface {
 
 export default function Conpane(props: PropsInterface) {
   return (
-    <div id="conpane" className="container">
+    <div id="conpane" className="m-container">
       <div><button onClick={props.onGacha}>ガチャを引く</button></div>
       <div><button onClick={props.onReset}>リセットする</button></div>
       <div><button onClick={props.onStatistics}>統計をみる</button></div>

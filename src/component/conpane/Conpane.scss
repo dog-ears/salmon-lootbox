@@ -3,30 +3,23 @@
 
 // Conpaneコンポーネントのみに適用されるスタイル
 #conpane{
-  text-align: center;
-  div{
-    display: inline-block;
-    margin: 0 10px;
-    @include mq(){
-      display: block;
-    }
-    & + div{
-      margin-top: 15px;
-    }
+  display: flex;
+  justify-content: center;
+  @include mqSp(){
+    flex-direction: column;
   }
-  button{
-    border: 1px solid $btn-color;
-    cursor: pointer;
-    padding: 5px 10px;
-    color: $btn-color;
-    font-weight: bold;
-    &:hover{
-      background: $btn-color;
-      color: #FFF;
+  div{
+    margin: 0 10px;
+    & + div{
+      @include mqSp(){
+        margin-top: 15px;
+      }
     }
-    @include mq(){
-      display: block;
-      width: 100%;
+    button{
+      @include btnSpecial;
+      @include mqSp(){
+        width: 100%;
+      }
     }
   }
 }

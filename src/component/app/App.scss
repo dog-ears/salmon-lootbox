@@ -2,5 +2,97 @@
 @import "../../asset/common";
 
 // Appコンポーネントのみに適用されるスタイル
+#app{
 
-.app{}
+  // ----------------------------------------
+  // 既存タグ
+  // ----------------------------------------
+
+  h1{
+    text-align: center;
+    line-height: 1.4em;
+    font-size: 30px;
+    font-weight: bold;
+  }
+  h2{
+    text-align: center;
+    line-height: 1.4em;
+    font-size: 24px;
+    font-weight: bold;
+  }
+  select{
+    border: 1px solid #666;
+    padding: 8px;
+    font-weight: bold;
+  }
+  input{
+    border: 1px solid #666;
+    padding: 8px;
+    font-weight: bold;
+  }
+  // スクロールバー
+  *::-webkit-scrollbar{ width: 4px; }
+  *::-webkit-scrollbar-track{ background: $scrollBar-track; }
+  *::-webkit-scrollbar-thumb{
+    background: $scrollBar-bg;
+    border-radius: 2px;
+  }
+
+  // ----------------------------------------
+  // ユーティリティ
+  // ----------------------------------------
+
+  .dib{
+    display: inline-block;
+  }
+
+  // hide
+  @include mqPc(){
+    .hidePc{
+      display: none!important;
+    }
+  }
+  @include mqSp(){
+    .hideSp{
+      display: none!important;
+    }
+  }
+
+  // ----------------------------------------
+  // モジュール
+  // ----------------------------------------
+
+  // コンテナ
+  .m-container{
+    padding: 30px;
+    & + .m-container {
+      border-top: 1px dashed $m-containerBorder-color;
+    }
+  }
+
+  // モーダル
+  .m-modal{
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    background: $m-modal-bgColor;
+    .mc-modalInner{
+      padding: 20px;
+      border: 1px solid $m-modalInner-borderColor;
+      border-radius: 10px;
+      background-color: $m-modalInner-bgColor;
+      .mc-btn{
+        margin-top: 15px;
+        text-align: center;
+        > button{
+          @include btnNormal;
+        }
+      }
+    }
+  }
+}

@@ -4,22 +4,22 @@
 // Settingコンポーネントのみに適用されるスタイル
 
 #setting{
-  padding: 30px;
   dl{
     display: flex;
     justify-content: center;
     align-items: center;
     margin-top: 15px;
-    @include mq(){
+    @include mqSp(){
       flex-direction: column;
     }
     dd{
       margin-left: 10px;
-      @include mq(){
+      @include mqSp(){
+        margin-left: 0;
         margin-top: 10px;
       }
       input{
-        width: 3.8em;
+        width: 4.2em;
         margin-right: 5px;
       }
     }

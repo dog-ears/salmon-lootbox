@@ -18,7 +18,7 @@ interface PropsInterface {
 
 export default function WeaponList(props: PropsInterface) {
   return (
-    <div id="weaponList" className="container">
+    <div id="weaponList" className="m-container">
       <h2>ブキリスト</h2>
       <div className="filter">
         <dl>

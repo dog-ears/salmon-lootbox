@@ -24,8 +24,8 @@
     > span{
       display: inline-block;
       padding: 3px 5px;
-      background-color: #c00;
-      color: #fff;
+      background-color: $gachaResult-new-bgColor;
+      color: $gachaResult-new-color;
       font-size: 12px;
     }
   }

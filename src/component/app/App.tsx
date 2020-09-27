@@ -322,8 +322,8 @@ export default class App extends React.Component<{}, RootStateInterface> {
 
   render() {
     return (
-      <div className="app">
-        <div className="container">
+      <div id="app">
+        <div className="m-container">
           <h1><span className="dib">サーモンラン</span> <span className="dib">ブキガチャ</span></h1>
         </div>
         <Setting

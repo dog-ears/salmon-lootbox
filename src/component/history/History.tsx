@@ -30,7 +30,7 @@ export default function History(props: PropsInterface) {
   const gachaCount: number = props.histories.filter((h) => h.type === 0).length;
 
   return (
-    <div id="history" className="container">
+    <div id="history" className="m-container">
       <h2>履歴</h2>
       <div className="gachaCount">ガチャを引いた回数：{gachaCount}</div>
       {props.histories.length > 0 &&

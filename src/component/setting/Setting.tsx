@@ -14,7 +14,7 @@ interface PropsInterface {
 
 export default function Setting(props: PropsInterface) {
   return (
-    <div id="setting" className="container">
+    <div id="setting" className="m-container">
       <h2>セッティング</h2>
       <dl>
         <dt>出現するクマブキ ：</dt>
@@ -29,7 +29,7 @@ export default function Setting(props: PropsInterface) {
       </dl>
       <dl>
         <dt>クマブキの出現確率 ：</dt>
-        <dd><input id="rate" type="number" value={props.rate} onChange={props.onChange} />％</dd>
+        <dd><input id="rate" type="number" min="0" max="100" value={props.rate} onChange={props.onChange} />％</dd>
       </dl>
     </div>
   );
