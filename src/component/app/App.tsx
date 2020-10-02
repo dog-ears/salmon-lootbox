@@ -69,7 +69,18 @@ export default class App extends React.Component<{}, RootStateInterface> {
   private loadState = (): RootStateInterface | null => {
     const jsonStr: string | null = localStorage.getItem('salmon-lootbox');
     if (jsonStr) {
-      const loadState: RootStateInterface = JSON.parse(jsonStr);
+      const loadState: RootStateInterface = Object.assign({
+        weaponInventory: [],
+        setting: {
+          choice: 51,
+          rate: 25,
+        },
+        filter: {
+          type: 0,
+          own: 0,
+        },
+        histories: [],
+      }, JSON.parse(jsonStr));
       return loadState;
     } else {
       return null;
