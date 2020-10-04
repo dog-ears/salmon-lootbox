@@ -294,8 +294,23 @@ export default class App extends React.Component<{}, RootStateInterface> {
 
   // 武器インベントリ増減
   private changeWeaponInventoryAmount = (weaponId: number, amount: number): void => {
+
     this.setState(
       (state) => {
+
+        // コンプリートフラグ
+        let isComplete = true;
+
+        // コンプリートメッセージを出す条件
+        // （１）所持武器数が、全武器数 - 1
+        // （２）amountがプラス、かつweaponIdの所持武器数が0。
+
+        // （全武器数 - 所持武器数）が、1以外ならコンプリートフラグはfalseにする
+        const allItemCount = this.getFilteredWeaponInventory(0, 0).length;
+        const ownItemCount = this.getFilteredWeaponInventory(0, 2).length;
+        if ((allItemCount - ownItemCount) !== 1) {
+          isComplete = false;
+        }
 
         // deep copy
         let newState: RootStateInterface = JSON.parse(JSON.stringify(state));
@@ -303,6 +318,13 @@ export default class App extends React.Component<{}, RootStateInterface> {
         // stateの更新
         newState.weaponInventory = newState.weaponInventory.map((wi) => {
           if (wi.weaponId === weaponId) {
+
+            // 武器所持数が0以外、またはamountがマイナスならコンプリートフラグはfalseにする
+            if (wi.amount !== 0 || amount < 0) {
+              isComplete = false;
+            }
+
+            // 武器数を増やす（減らす）
             wi.amount += amount;
 
             // -1になってしまったときの処理
@@ -312,6 +334,11 @@ export default class App extends React.Component<{}, RootStateInterface> {
           }
           return wi;
         });
+
+        if (isComplete) {
+          window.alert('コンプリートおめでとうございます！！');
+        }
+
         return newState;
       }, this.saveState
     );
