@@ -294,7 +294,6 @@ export default class App extends React.Component<{}, RootStateInterface> {
 
   // 武器インベントリ増減
   private changeWeaponInventoryAmount = (weaponId: number, amount: number): void => {
-
     this.setState(
       (state) => {
 
@@ -384,6 +383,9 @@ export default class App extends React.Component<{}, RootStateInterface> {
         <History
           histories={this.state.histories}
         />
+        <div className="m-container" id="specialThanks">
+          Special Thanks.<br /><a href="https://twitter.com/gungeespla" target="_blank" rel="noopener noreferrer">ガンジー(@GungeeSpla)さん</a>
+        </div>
         <div id="modal"></div>
       </div>
     );

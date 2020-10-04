@@ -97,6 +97,17 @@
   }
 
   // ----------------------------------------
+  // Special Thanks
+  // ----------------------------------------
+  #specialThanks{
+    border-bottom: 1px dashed $m-containerBorder-color;
+    margin-bottom: 60px;
+    text-align: center;
+    font-size: 12px;
+    line-height: 1.4em;
+  }
+
+  // ----------------------------------------
   // google アドセンス
   // #app内では表示しないようにする。
   // ----------------------------------------

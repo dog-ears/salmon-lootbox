@@ -4,8 +4,6 @@
 // Historyコンポーネントのみに適用されるスタイル
 
 #history{
-  border-bottom: 1px dashed $m-containerBorder-color;
-  margin-bottom: 60px;
   @include mqSp(){
     margin-bottom: 30px;
   }
