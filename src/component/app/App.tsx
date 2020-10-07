@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 
 // スタイル
 import './App.scss';
@@ -10,6 +9,7 @@ import Conpane from 'component/conpane/Conpane';
 import WeaponList from 'component/weaponList/WeaponList';
 import ModalGachaResult from 'component/modalGachaResult/ModalGachaResult';
 import ModalStatistics from 'component/modalStatistics/ModalStatistics';
+import ModalComplete from 'component/modalComplete/ModalComplete';
 import History from 'component/history/History';
 
 // クラス
@@ -40,6 +40,13 @@ export default class App extends React.Component<{}, RootStateInterface> {
           own: 0,
         },
         histories: [],
+        modalState: {
+          modalComplete: false,
+          modalGachaResult: false,
+          modalStatistics: false,
+        },
+        droppedWeaponId: 0,
+        isNew: false,
       }
     }
   }
@@ -55,7 +62,6 @@ export default class App extends React.Component<{}, RootStateInterface> {
 
       // モーダルを閉じる
       this.onCloseModal(e);
-
     }
   }
 
@@ -80,7 +86,16 @@ export default class App extends React.Component<{}, RootStateInterface> {
           own: 0,
         },
         histories: [],
+        droppedWeaponId: 0,
+        isNew: false,
       }, JSON.parse(jsonStr));
+
+      // モーダルはすべて閉じた状態にする
+      loadState.modalState = {
+        modalComplete: false,
+        modalGachaResult: false,
+        modalStatistics: false,
+      }
       return loadState;
     } else {
       return null;
@@ -132,18 +147,47 @@ export default class App extends React.Component<{}, RootStateInterface> {
       return true;
     });
 
+    // 取得した武器でコンプリートしたかをチェック
+    let isLastOne = this.isLastOne(droppedWeapon.id)
+
+    // ランダム武器IDとisNewを格納
+    this.setState({
+      droppedWeaponId: droppedWeapon.id,
+      isNew: isNew,
+    });
+
     // インベントリの増減処理を呼ぶ
     this.changeWeaponInventoryAmount(droppedWeapon.id, 1);
 
     // ヒストリの追加
     this.addHistory({ type: 0, weaponId: droppedWeapon.id, amount: 1 });
 
-    // ガチャ結果モーダルを開く
-    ReactDOM.render(<ModalGachaResult
-      droppedWeapon={droppedWeapon}
-      isNew={isNew}
-      onCloseModal={this.onCloseModal}
-    />, document.getElementById('modal'));
+    // コンプリートなら、コンプリートモーダルを、
+    // コンプリートでなければ、ガチャ結果モーダルを開く
+    if (isLastOne) {
+      this.setState(
+        (state) => {
+
+          // deep copy
+          let newState: RootStateInterface = JSON.parse(JSON.stringify(state));
+
+          newState.modalState.modalComplete = true;
+          return newState;
+        }
+      );
+    } else {
+      // ガチャ結果モーダルを開く
+      this.setState(
+        (state) => {
+
+          // deep copy
+          let newState: RootStateInterface = JSON.parse(JSON.stringify(state));
+
+          newState.modalState.modalGachaResult = true;
+          return newState;
+        }
+      );
+    }
   }
 
   // リセットを押したときの処理
@@ -166,6 +210,11 @@ export default class App extends React.Component<{}, RootStateInterface> {
           wi.amount = 0;
           return wi;
         });
+        newState.filter = {
+          type: 0,
+          own: 0,
+        };
+        newState.histories = [];
         return newState;
       }, this.saveState
     );
@@ -178,20 +227,34 @@ export default class App extends React.Component<{}, RootStateInterface> {
     event.currentTarget.blur();
 
     // 統計モーダルを開く
-    ReactDOM.render(<ModalStatistics
-      weaponInventoryOwn={this.getFilteredWeaponInventory(0, 2)}
-      onCloseModal={this.onCloseModal}
-    />, document.getElementById('modal'));
+    this.setState(
+      (state) => {
+
+        // deep copy
+        let newState: RootStateInterface = JSON.parse(JSON.stringify(state));
+
+        newState.modalState.modalStatistics = true;
+        return newState;
+      }
+    );
   }
 
   // モーダルを閉じる
   private onCloseModal = (event: React.MouseEvent<HTMLButtonElement, MouseEvent> | KeyboardEvent) => {
 
     // モーダルを閉じる
-    let modalElement = document.getElementById('modal');
-    if (modalElement !== null) {
-      ReactDOM.unmountComponentAtNode(modalElement);
-    }
+    this.setState(
+      (state) => {
+
+        // deep copy
+        let newState: RootStateInterface = JSON.parse(JSON.stringify(state));
+
+        newState.modalState.modalComplete = false;
+        newState.modalState.modalGachaResult = false;
+        newState.modalState.modalStatistics = false;
+        return newState;
+      }
+    );
   }
 
   // フィルタリング変更
@@ -223,6 +286,9 @@ export default class App extends React.Component<{}, RootStateInterface> {
     // datasetに「weaponId」と「amount」がなかったら何もしない
     if (event.currentTarget.dataset.weaponid === undefined || event.currentTarget.dataset.amount === undefined) { return }
 
+    // 取得した武器でコンプリートしたかをチェック
+    let isLastOne = this.isLastOne(parseInt(event.currentTarget.dataset.weaponid))
+
     // インベントリの増減処理を呼ぶ
     this.changeWeaponInventoryAmount(parseInt(event.currentTarget.dataset.weaponid), parseInt(event.currentTarget.dataset.amount));
 
@@ -232,6 +298,20 @@ export default class App extends React.Component<{}, RootStateInterface> {
       weaponId: parseInt(event.currentTarget.dataset.weaponid),
       amount: parseInt(event.currentTarget.dataset.amount),
     });
+
+    // コンプリートなら、コンプリートモーダルを開く
+    if (isLastOne) {
+      this.setState(
+        (state) => {
+
+          // deep copy
+          let newState: RootStateInterface = JSON.parse(JSON.stringify(state));
+
+          newState.modalState.modalComplete = true;
+          return newState;
+        }
+      );
+    }
   }
 
   /* ------------------------------------------------------
@@ -297,31 +377,12 @@ export default class App extends React.Component<{}, RootStateInterface> {
     this.setState(
       (state) => {
 
-        // コンプリートフラグ
-        let isComplete = true;
-
-        // コンプリートメッセージを出す条件
-        // （１）所持武器数が、全武器数 - 1
-        // （２）amountがプラス、かつweaponIdの所持武器数が0。
-
-        // （全武器数 - 所持武器数）が、1以外ならコンプリートフラグはfalseにする
-        const allItemCount = this.getFilteredWeaponInventory(0, 0).length;
-        const ownItemCount = this.getFilteredWeaponInventory(0, 2).length;
-        if ((allItemCount - ownItemCount) !== 1) {
-          isComplete = false;
-        }
-
         // deep copy
         let newState: RootStateInterface = JSON.parse(JSON.stringify(state));
 
         // stateの更新
         newState.weaponInventory = newState.weaponInventory.map((wi) => {
           if (wi.weaponId === weaponId) {
-
-            // 武器所持数が0以外、またはamountがマイナスならコンプリートフラグはfalseにする
-            if (wi.amount !== 0 || amount < 0) {
-              isComplete = false;
-            }
 
             // 武器数を増やす（減らす）
             wi.amount += amount;
@@ -333,10 +394,6 @@ export default class App extends React.Component<{}, RootStateInterface> {
           }
           return wi;
         });
-
-        if (isComplete) {
-          window.alert('コンプリートおめでとうございます！！');
-        }
 
         return newState;
       }, this.saveState
@@ -355,6 +412,36 @@ export default class App extends React.Component<{}, RootStateInterface> {
         return newState;
       }, this.saveState
     );
+  }
+
+  /**
+   * 最後の一つかチェック
+   * @param  {number} wid 取得した武器ID
+   */
+  private isLastOne = (wid: number): boolean => {
+
+    // 結果
+    let result = true;
+
+    this.getFilteredWeaponInventory(0, 0).map((wi) => {
+
+      if (wi.weaponId === wid) {
+
+        // 取得した武器の所持数が0以外なら、false
+        if (wi.amount !== 0) {
+          result = false;
+        }
+      } else {
+
+        // 取得した武器以外の武器の所持数が0だったら、false
+        if (wi.amount === 0) {
+          result = false;
+        }
+      }
+      return false;
+    });
+
+    return result;
   }
 
   render() {
@@ -386,7 +473,28 @@ export default class App extends React.Component<{}, RootStateInterface> {
         <div className="m-container" id="specialThanks">
           Special Thanks.<br /><a href="https://twitter.com/gungeespla" target="_blank" rel="noopener noreferrer">ガンジー(@GungeeSpla)さん</a>
         </div>
-        <div id="modal"></div>
+        <div id="modal">
+          {this.state.modalState.modalComplete === true &&
+            <ModalComplete
+              weaponInventoryOwn={this.getFilteredWeaponInventory(0, 2)}
+              histories={this.state.histories}
+              onCloseModal={this.onCloseModal}
+            />
+          }
+          {this.state.modalState.modalGachaResult === true &&
+            <ModalGachaResult
+              droppedWeapon={Weapons.getById(this.state.droppedWeaponId)}
+              isNew={this.state.isNew}
+              onCloseModal={this.onCloseModal}
+            />
+          }
+          {this.state.modalState.modalStatistics === true &&
+            <ModalStatistics
+              weaponInventoryOwn={this.getFilteredWeaponInventory(0, 2)}
+              onCloseModal={this.onCloseModal}
+            />
+          }
+        </div>
       </div>
     );
   }

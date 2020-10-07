@@ -9,10 +9,13 @@ interface RootStateInterface {
   setting: SettingInterface,
   filter: FilterInterface,
   histories: HistoryInterface[],
+  modalState: ModalInterface,
+  droppedWeaponId: number,
+  isNew: boolean,
 }
 interface WeaponInventoryInterface {
   weaponId: number,
-  amount: number,
+  amount: number
 }
 interface SettingInterface {
   choice: number,
@@ -30,4 +33,9 @@ interface HistoryInterface {
   type: number,
   weaponId: number,
   amount: number,
+}
+interface ModalInterface {
+  modalComplete: boolean,
+  modalGachaResult: boolean,
+  modalStatistics: boolean,
 }

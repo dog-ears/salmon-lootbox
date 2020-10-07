@@ -1,0 +1,28 @@
+// 共通（mixinとvariable）
+@import "../../asset/common";
+
+// Appコンポーネントのみに適用されるスタイル
+
+#modalComplete{
+  .txt{
+    margin-top: 15px;
+    text-align: center;
+    line-height: 1.4em;
+    ul > li > span{
+      display: inline-block;
+      min-height: 40px;
+      padding-top: 7px;
+      padding-left: 45px;
+      background-position: left center;
+      background-repeat: no-repeat;
+      background-size: 40px 40px;
+      @include weaponBg;
+    }
+  }
+  .note{
+    margin-top: 5px;
+    text-align: center;
+    font-size: 12px;
+    line-height: 1.4em;
+  }
+}
