@@ -1,4 +1,5 @@
 import React from 'react';
+import { TwitterIcon, TwitterShareButton } from 'react-share';
 
 // スタイル
 import './ModalComplete.scss';
@@ -47,6 +48,18 @@ export default function ModalGachaResult(props: PropsInterface) {
       }
     });
 
+  // ツイート文言生成
+  const mostWeapon = Weapons.getById(mostCountWeapons[0].weaponId).name;
+  let tweetText: string = `サーモンラン ブキガチャ
+
+  手動で増やした回数：${historyManualCount} 回
+  回したガチャの回数：${historyGachaCount} 回
+  バイト回数：${countGame} 回
+  かかった時間：${gameTimeHour} 時間 ${gameTimeMinute} 分
+  最も出た武器 / 回数：
+  ${mostWeapon} / ${mostCountWeapons[0].amount} 回
+  `;
+
   return (
     <div id="modalComplete" className="m-modal">
       <div className="mc-modalInner">
@@ -73,6 +86,12 @@ export default function ModalGachaResult(props: PropsInterface) {
           </ul>
         </div>
         <div className="note">※クマブキはのぞく。３つまで</div>
+        <div className="twitterMsg">結果をツイートする</div>
+        <div className="twitterBtn">
+          <TwitterShareButton url="https://salmon-lootbox.dog-ears.net/" title={tweetText} hashtags={['サーモンランブキガチャ']}>
+            <TwitterIcon size={32} round />
+          </TwitterShareButton>
+        </div>
         <div className="mc-btn"><button onClick={props.onCloseModal}>閉じる</button></div>
       </div>
     </div>
