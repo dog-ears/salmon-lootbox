@@ -32,7 +32,6 @@ export default function ModalGachaResult(props: PropsInterface) {
   let gameTimeMinute = gameTime % 60;
 
   // 所持している武器（数の一番多いもの）
-  let prevAmount: number = 0;
   let mostCountWeapons: WeaponInventoryInterface[] = props.weaponInventoryOwn
 
     // （１）クマブキは除外
@@ -44,17 +43,19 @@ export default function ModalGachaResult(props: PropsInterface) {
       }
     })
     // （２）所持数でソート
-    .sort((a, b) => { return (a.amount < b.amount) ? 1 : -1 })
-    // （３）一つ前の所持数より少ない場合は、除外
-    .filter((wi) => {
-      if (prevAmount === 0 || prevAmount === wi.amount) {
-        prevAmount = wi.amount;
-        return true;
-      } else {
-        prevAmount = wi.amount;
-        return false;
-      }
-    });
+    .sort((a, b) => { return (a.amount < b.amount) ? 1 : -1 });
+
+  // 最大所持武器の所持数を取得
+  let maxAmount: number = mostCountWeapons[0].amount;
+  console.log(`[maxAmount]: ${maxAmount}`);
+  // （３）最大所持武器より所持数が少ない場合は、除外
+  mostCountWeapons = mostCountWeapons.filter((wi) => {
+    if (wi.amount < maxAmount) {
+      return false;
+    } else {
+      return true;
+    }
+  });
 
   // ツイート文言生成
   let mostWeaponName: string = Weapons.getById(mostCountWeapons[0].weaponId).name;
