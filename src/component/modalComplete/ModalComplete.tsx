@@ -49,8 +49,7 @@ export default function ModalGachaResult(props: PropsInterface) {
     });
 
   // ツイート文言生成
-  console.log(mostCountWeapons);
-  const mostWeaponName = Weapons.getById(mostCountWeapons[0].weaponId).name;
+  let mostWeaponName = Weapons.getById(mostCountWeapons[0].weaponId).name;
   let tweetText: string = `サーモンラン ブキガチャ
 
   手動で増やした回数：${historyManualCount} 回
