@@ -281,26 +281,24 @@ export default class App extends React.Component<{}, RootStateInterface> {
   // 武器リストの「+」「-」をおした時の処理
   private onClickPlusMinus = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
 
-    console.log('onClickPlusMinus01');
-
     event.persist();  // イベントを非同期で使えるようにする
 
     // datasetに「weaponId」と「amount」がなかったら何もしない
     if (event.currentTarget.dataset.weaponid === undefined || event.currentTarget.dataset.amount === undefined) { return }
-    console.log('onClickPlusMinus02');
+
     // 取得した武器でコンプリートしたかをチェック
     let isLastOne = this.isLastOne(parseInt(event.currentTarget.dataset.weaponid))
-    console.log('onClickPlusMinus03');
+
     // インベントリの増減処理を呼ぶ
     this.changeWeaponInventoryAmount(parseInt(event.currentTarget.dataset.weaponid), parseInt(event.currentTarget.dataset.amount));
-    console.log('onClickPlusMinus04');
+
     // ヒストリの追加
     this.addHistory({
       type: 1,
       weaponId: parseInt(event.currentTarget.dataset.weaponid),
       amount: parseInt(event.currentTarget.dataset.amount),
     });
-    console.log('onClickPlusMinus05');
+
     // コンプリートなら、コンプリートモーダルを開く
     if (isLastOne) {
       this.setState(
@@ -314,7 +312,6 @@ export default class App extends React.Component<{}, RootStateInterface> {
         }
       );
     }
-    console.log('onClickPlusMinus06');
   }
 
   /* ------------------------------------------------------
@@ -422,10 +419,10 @@ export default class App extends React.Component<{}, RootStateInterface> {
    * @param  {number} wid 取得した武器ID
    */
   private isLastOne = (wid: number): boolean => {
-    console.log('isLastOne01');
+
     // 結果
     let result = true;
-    console.log('isLastOne02');
+
     this.getFilteredWeaponInventory(0, 0).map((wi) => {
 
       if (wi.weaponId === wid) {
@@ -443,7 +440,7 @@ export default class App extends React.Component<{}, RootStateInterface> {
       }
       return false;
     });
-    console.log('isLastOne03');
+
     return result;
   }
 
