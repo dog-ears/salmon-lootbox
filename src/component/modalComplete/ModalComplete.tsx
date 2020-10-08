@@ -32,8 +32,8 @@ export default function ModalGachaResult(props: PropsInterface) {
   let gameTimeMinute = gameTime % 60;
 
   // 最も出た武器（クマブキのぞく。上限3個まで）のリスト取得
-  let prevAmount = 0;
-  const mostCountWeapons = props.weaponInventoryOwn
+  let prevAmount: number = 0;
+  let mostCountWeapons: WeaponInventoryInterface[] = props.weaponInventoryOwn
     .sort((a, b) => { return (a.amount < b.amount) ? 1 : -1 })
     .filter((wi) => {
       if (prevAmount === 0 || prevAmount === wi.amount) {
@@ -49,7 +49,8 @@ export default function ModalGachaResult(props: PropsInterface) {
     });
 
   // ツイート文言生成
-  const mostWeapon = Weapons.getById(mostCountWeapons[0].weaponId).name;
+  console.log(mostCountWeapons);
+  const mostWeaponName = Weapons.getById(mostCountWeapons[0].weaponId).name;
   let tweetText: string = `サーモンラン ブキガチャ
 
   手動で増やした回数：${historyManualCount} 回
@@ -57,7 +58,7 @@ export default function ModalGachaResult(props: PropsInterface) {
   バイト回数：${countGame} 回
   かかった時間：${gameTimeHour} 時間 ${gameTimeMinute} 分
   最も出た武器 / 回数：
-  ${mostWeapon} / ${mostCountWeapons[0].amount} 回
+  ${mostWeaponName} / ${mostCountWeapons[0].amount} 回
   `;
 
   return (
